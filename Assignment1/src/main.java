@@ -3,6 +3,6 @@
  */
 public class main {
     public static void main(String[] args){
-        tasks.task1();
+        tasks.task2();
     }
 }

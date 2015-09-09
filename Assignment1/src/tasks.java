@@ -35,23 +35,25 @@ public class tasks {
             }
             else if (character == ')'){
 
-                tmp = character + tmp;
                 int j = tmp.indexOf('(');
-                if (tmp.contains("(") && tmp.contains(")")){
-                    output += tmp.substring(1, j);
+                if (tmp.contains("(")){
+                    output += tmp.substring(0, j);
                     String remove = tmp.substring(0, j+1);
                     tmp = tmp.replace(remove,"");
                     System.out.println(tmp);
                 }
-                //5+5*10+(4+3)
+                //5+5*5*(2+10)
             }
             else if (character == '+' || character == '-' || character == '*' || character == '/'){
                 //tmp = tmp + character;
 
-                char t = tmp.length() > 0 ? tmp.charAt(tmp.length()-1): ' ';
+
+                char t = tmp.length() > 0 ? tmp.charAt(0): ' ';
                 while (tmp.length() > 0 && !(operatorCheck(t) < operatorCheck(character)) && t != '('){
                     output += t;
+                    System.out.println("before delete: " + tmp);
                     tmp = tmp.substring(0, tmp.length()-1);
+                    System.out.println("delete: " + tmp);
                 }
                 tmp = character + tmp;
             }
