@@ -70,7 +70,7 @@ public class tasks {
         return output;
 
     }
-    public static int operatorCheck(char operator){
+    private static int operatorCheck(char operator){
         //Checks if operator in variable "operator" has a value of "0" or "1".
         if (operator == '+' || operator == '-'){
             return 0;
@@ -91,7 +91,7 @@ public class tasks {
                 tmp += character;
             }
             //If the character is a operator + and the length of tmp is bigger then 1, the two characters in tmp will be added to each other
-            //and then to temp variable of type int.
+            //and then to temp variable of type int. Else the character will directly be + to temp.
             else if (character == '+'){
                 if (tmp.length() > 1) {
                     temp += Character.getNumericValue(tmp.charAt(0)) + Character.getNumericValue(tmp.charAt(1));
@@ -101,7 +101,7 @@ public class tasks {
                 tmp = "";
             }
             //If the character is a operator - and the length of tmp is bigger then 1, the two characters in tmp will be substrate to each other
-            //and then to temp variable of type int.
+            //and then to temp variable of type int. Else temp will be - with the character.
             else if (character == '-'){
                 if (tmp.length() > 1) {
                     temp += Character.getNumericValue(tmp.charAt(0)) - Character.getNumericValue(tmp.charAt(1));
@@ -111,7 +111,7 @@ public class tasks {
                 tmp = "";
             }
             //If the character is a operator / and the length of tmp is bigger then 1, the two characters in tmp will be divided by each other
-            //and then to temp variable of type int.
+            //and then to temp variable of type int. Else temp will be / with the character.
             else if (character == '/'){
                 if (tmp.length() > 1) {
                     temp = (double)Character.getNumericValue(tmp.charAt(tmp.length()-2)) / (double)Character.getNumericValue(tmp.charAt(tmp.length()-1));
@@ -121,7 +121,7 @@ public class tasks {
                 tmp = tmp.substring(0, tmp.length()-2);
             }
             //If the character is a operator and the length of tmp is bigger then 1, the two characters in tmp will be multiplied to each other
-            //and then to temp variable of type int.
+            //and then to temp variable of type int. Else temp will be * with the character.
             else if (character == '*'){
                 if (tmp.length() > 1) {
                     temp += Character.getNumericValue(tmp.charAt(0)) * Character.getNumericValue(tmp.charAt(1));
@@ -130,12 +130,14 @@ public class tasks {
                     temp *= Character.getNumericValue(tmp.charAt(0));
                 tmp = "";
             }
+            //I've added spaces between every character so if it's a space the while-loop will just continue.
             else
                 continue;
         }
         return temp;
     }
     public static void welcome(){
+        //Printing out the welcome message.
         System.out.println(
                 "+*****************************************+\n" +
                         "*                                         *\n" +
