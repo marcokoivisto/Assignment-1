@@ -8,72 +8,55 @@ import java.util.Scanner;
  */
 
 public class tasks {
-    public static void task1(){
-
-        //Creating a scanner for user input.
-        Scanner sc = new Scanner(System.in);
-        //Asking the user for a infix string
-        System.out.println("Hi, please enter a infix string! (This program will convert it into RPN).");
-        //Creating a variable for the infix string and also reading the value.
-        String infix = sc.nextLine();
+    public static String task1(String infix){
         //Creating a variable for the output.
         String output = "", tmp = "";
-        //Getting the amount of characters.
-        int length = infix.length();
-
 
         //Converting the infix string into a RPN string.
-        for (int i = 0; i < length; i++){
+        //Creating the loop that will go on for every character in the infix string.
+        for (int i = 0; i < infix.length(); i++){
 
+            //Creating a variable to hold the character at position (i).
             char character = infix.charAt(i);
+            //if statement for numbers.
             if (character >= '0' && character <= '9'){
-                output = output + character;
+                output += " " + character;
             }
+            //if statement for left paranthases.
             else if (character == '('){
                 tmp = character + tmp;
-                //tmp = tmp + character;
             }
+            //if statement for right paranthases.
             else if (character == ')'){
-
-                int j = tmp.indexOf('(');
                 if (tmp.contains("(")){
-                    output += tmp.substring(0, j);
-                    String remove = tmp.substring(0, j+1);
-                    tmp = tmp.replace(remove,"");
-                    System.out.println(tmp);
+                    int j = tmp.indexOf('(');
+                    output += " " + tmp.substring(0, j);
+                    tmp = tmp.substring(j+1, tmp.length());
                 }
-                //5+5*5*(2+10)
             }
+            //if statement for operators.
             else if (character == '+' || character == '-' || character == '*' || character == '/'){
-                //tmp = tmp + character;
 
-
-                char t = tmp.length() > 0 ? tmp.charAt(0): ' ';
-                while (tmp.length() > 0 && !(operatorCheck(t) < operatorCheck(character)) && t != '('){
-                    output += t;
-                    System.out.println("before delete: " + tmp);
-                    tmp = tmp.substring(0, tmp.length()-1);
-                    System.out.println("delete: " + tmp);
+                while (true){
+                    char t = tmp.length() > 0 ? tmp.charAt(0): ' ';
+                    if (operatorCheck(t) < operatorCheck(character) || t == '(' || tmp.length() == 0) {
+                        break;
+                    }
+                    output += " " + t;
+                    tmp = tmp.substring(1, tmp.length());
                 }
                 tmp = character + tmp;
             }
-
-            // test - System.out.println(infix.charAt(i));
-            System.out.println("tmp:" + tmp);
-            System.out.println("output" + output + "\n");
-
         }
-
-        output += tmp;
+        //Adding a space between the operators that are left in tmp after the for-loop is done.
+        for (int i = 0; i < tmp.length(); i++) {
+            output += " " + tmp.charAt(i);
+        }
+        //Resetting tmp variable.
         tmp = "";
 
-
-
-        //test print out.
-        System.out.println("infix is: " + infix + "\n");
-        System.out.println("infix length is: " + length + " chars.\n");
-        System.out.println("output: " + output + "\n");
-        System.out.println("in tmp: " + tmp + "\n");
+        //Returning the postfix string.
+        return output;
 
     }
     public static int operatorCheck(char operator){
@@ -82,22 +65,42 @@ public class tasks {
         }
         return 1;
     }
-    public static void task2(){
-        //Creating a scanner for user input
-        Scanner sc = new Scanner(System.in);
-        //Printing out the welcome message
-        welcome();
-        //Asking the user what he/she wants to do
-        System.out.println("Press \"E\" to exit or any other button to continue> ");
-        //Saving the users answer
-        char choice = sc.next().charAt(0);
-        //Letting the program know what choice the user made.
-        if (choice == 'e' || choice == 'E'){
-            System.exit(0);
+    public static double task2(String postfix){
+
+        int i = 0;
+        String tmp = "";
+        double temp = 0;
+        while (i <= postfix.length()-1){
+            char character = postfix.charAt(i);
+            i++;
+            if (character >= '0' && character <= '9'){
+                tmp += character;
+            }
+            else if (character == '+'){
+                if (tmp.length() > 1) {
+                    temp = Character.getNumericValue(tmp.charAt(0)) + Character.getNumericValue(tmp.charAt(1));
+                    System.out.println(temp);
+                }
+                else
+                    temp += tmp.charAt(0);
+                tmp = "";
+            }
+            else if (character == '-'){
+                temp += tmp.charAt(0) - tmp.charAt(1);
+                tmp = "";
+            }
+            else if (character == '/'){
+                temp += tmp.charAt(0) / tmp.charAt(1);
+                tmp = "";
+            }
+            else if (character == '*'){
+                temp += tmp.charAt(0) * tmp.charAt(1);
+                tmp = "";
+            }
+            else
+                continue;
         }
-        else {
-            runcalc();
-        }
+        return temp;
     }
     public static void welcome(){
         System.out.println(
@@ -109,7 +112,7 @@ public class tasks {
                 "+*****************************************+\n"
         );
     }
-    public static void runcalc(){
+    public static void runCalc(){
         //Creating a scanner to read user input
         Scanner sc = new Scanner(System.in);
         //Asking the user to enter a arithmetic expression to evaluate
@@ -117,50 +120,8 @@ public class tasks {
         //Saving the users input into a variable
         String infix = sc.nextLine();
 
-
-        //Creating a variable for the output.
-        String output = "", tmp = "";
-        //Getting the amount of characters.
-        int length = infix.length();
-        //Converting the infix string into a RPN string.
-        for (int i = 0; i < length; i++){
-            char character = infix.charAt(i);
-            if (character >= '0' && character <= '9'){
-                output = output + character;
-            }
-            else if (character == '('){
-                tmp = character + tmp;
-                //tmp = tmp + character;
-            }
-            else if (character == ')'){
-
-                tmp = character + tmp;
-                int j = tmp.indexOf('(');
-                if (tmp.contains("(") || tmp.contains(")")){
-                    output += tmp.substring(1, j);
-                    String remove = tmp.substring(0, j+1);
-                    tmp = tmp.replace(remove,"");
-                }
-            }
-            else if (character == '+' || character == '-' || character == '*' || character == '/'){
-                //tmp = tmp + character;
-                tmp = character + tmp;
-            }
-            // test - System.out.println(infix.charAt(i));
-        }
-
-
-        //HELP!!!!!
-        if (!tmp.contains("(") || !tmp.contains(")")){
-            output += tmp;
-            tmp = "";
-        }
-
-
-        System.out.println("The RPN representation of your expression is> " + output + "\n");
-        //System.out.println("The final result is>" + infix + "\n");
-        System.out.println("The final result is> " + infix);
-
+        System.out.println("The RPN representation of your expression is> " + task1(infix));
+        System.out.println("The final result is> " + task2(task1(infix)) + "\n");
 
         //Asking the user what he/she wants to do
         System.out.println("Press \"E\" to exit or any other button to continue> ");
@@ -171,8 +132,7 @@ public class tasks {
             System.exit(0);
         }
         else {
-            task2();
+            runCalc();
         }
-
     }
 }
