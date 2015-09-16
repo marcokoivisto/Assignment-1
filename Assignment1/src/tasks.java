@@ -47,6 +47,11 @@ public class tasks {
                 }
                 tmp = character + tmp;
             }
+            else if (character == ' '){
+                continue;
+            }
+            else
+                System.out.println(character + " Is not a valid character!");
         }
         //Adding a space between the operators that are left in tmp after the for-loop is done.
         for (int i = 0; i < tmp.length(); i++) {
@@ -87,7 +92,6 @@ public class tasks {
             else if (character == '-'){
                 if (tmp.length() > 1) {
                     temp += Character.getNumericValue(tmp.charAt(0)) - Character.getNumericValue(tmp.charAt(1));
-                    System.out.println(temp);
                 }
                 else
                     temp -= Character.getNumericValue(tmp.charAt(0));
@@ -96,7 +100,6 @@ public class tasks {
             else if (character == '/'){
                 if (tmp.length() > 1) {
                     temp = Character.getNumericValue(tmp.charAt(0)) / Character.getNumericValue(tmp.charAt(1));
-                    System.out.println(temp);
                 }
                 else
                     temp /= Character.getNumericValue(tmp.charAt(0));
@@ -105,7 +108,6 @@ public class tasks {
             else if (character == '*'){
                 if (tmp.length() > 1) {
                     temp += Character.getNumericValue(tmp.charAt(0)) * Character.getNumericValue(tmp.charAt(1));
-                    System.out.println(temp);
                 }
                 else
                     temp *= Character.getNumericValue(tmp.charAt(0));
