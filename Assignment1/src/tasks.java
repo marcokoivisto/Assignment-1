@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class tasks {
     public static String task1(String infix){
-        //Creating a variable for the output.
+        //Creating a variable to hold the output and a variable to hold characters temp.
         String output = "", tmp = "";
 
         //Converting the infix string into a RPN string.
@@ -18,15 +18,15 @@ public class tasks {
 
             //Creating a variable to hold the character at position (i).
             char character = infix.charAt(i);
-            //if statement for numbers.
+            //if statement for numbers, Statement - if number add number to variable of type string output.
             if (character >= '0' && character <= '9'){
                 output += " " + character;
             }
-            //if statement for left paranthases.
+            //if statement for left paranthases, if ( add character to variable of type string tmp.
             else if (character == '('){
                 tmp = character + tmp;
             }
-            //if statement for right paranthases.
+            //if statement for right paranthases, if ) and tmp contains ( add characters beetween ) - ( to output.
             else if (character == ')'){
                 if (tmp.contains("(")){
                     int j = tmp.indexOf('(');
@@ -34,22 +34,28 @@ public class tasks {
                     tmp = tmp.substring(j+1, tmp.length());
                 }
             }
-            //if statement for operators.
+            //if statement for operators, if tmp length is bigger then 0, t = first character, otherwise character = ' '
             else if (character == '+' || character == '-' || character == '*' || character == '/'){
 
                 while (true){
                     char t = tmp.length() > 0 ? tmp.charAt(0): ' ';
+                    // operatorCheck checks the value of the operator. If the value of first character in tmp is less than
+                    // the value of the new character or  "t" is equal to ( or tmp length is 0 - break out of while loop.
+                    // Otherwise add character "t" to output string. Then delete the character from tmp String until break.
                     if (operatorCheck(t) < operatorCheck(character) || t == '(' || tmp.length() == 0) {
                         break;
                     }
                     output += " " + t;
                     tmp = tmp.substring(1, tmp.length());
                 }
+                //add character to the beginning of tmp string.
                 tmp = character + tmp;
             }
+                // if character is a space just continue the loop.
             else if (character == ' '){
                 continue;
             }
+                //else if the character is a letter or something else, tell the user that the character is not valid.
             else
                 System.out.println(character + " Is not a valid character!");
         }
@@ -65,22 +71,27 @@ public class tasks {
 
     }
     public static int operatorCheck(char operator){
+        //Checks if operator in variable "operator" has a value of "0" or "1".
         if (operator == '+' || operator == '-'){
             return 0;
         }
         return 1;
     }
     public static double task2(String postfix){
-
         int i = 0;
         String tmp = "";
         double temp = 0;
+        //While loop is running as long as "i" is less or equal to the postfix string length. (All characters)
         while (i <= postfix.length()-1){
+            //Variable character is dependent of i, so will be changed as the loop starts over again.
             char character = postfix.charAt(i);
             i++;
+            //If the character is numeric it will be added to the String "tmp".
             if (character >= '0' && character <= '9'){
                 tmp += character;
             }
+            //If the character is a operator + and the length of tmp is bigger then 1, the two characters in tmp will be added to each other
+            //and then to temp variable of type int.
             else if (character == '+'){
                 if (tmp.length() > 1) {
                     temp += Character.getNumericValue(tmp.charAt(0)) + Character.getNumericValue(tmp.charAt(1));
@@ -89,6 +100,8 @@ public class tasks {
                     temp += Character.getNumericValue(tmp.charAt(0));
                 tmp = "";
             }
+            //If the character is a operator - and the length of tmp is bigger then 1, the two characters in tmp will be substrate to each other
+            //and then to temp variable of type int.
             else if (character == '-'){
                 if (tmp.length() > 1) {
                     temp += Character.getNumericValue(tmp.charAt(0)) - Character.getNumericValue(tmp.charAt(1));
@@ -97,14 +110,18 @@ public class tasks {
                     temp -= Character.getNumericValue(tmp.charAt(0));
                 tmp = "";
             }
+            //If the character is a operator / and the length of tmp is bigger then 1, the two characters in tmp will be divided by each other
+            //and then to temp variable of type int.
             else if (character == '/'){
                 if (tmp.length() > 1) {
-                    temp = Character.getNumericValue(tmp.charAt(0)) / Character.getNumericValue(tmp.charAt(1));
+                    temp = (double)Character.getNumericValue(tmp.charAt(tmp.length()-2)) / (double)Character.getNumericValue(tmp.charAt(tmp.length()-1));
                 }
                 else
                     temp /= Character.getNumericValue(tmp.charAt(0));
-                tmp = "";
+                tmp = tmp.substring(0, tmp.length()-2);
             }
+            //If the character is a operator and the length of tmp is bigger then 1, the two characters in tmp will be multiplied to each other
+            //and then to temp variable of type int.
             else if (character == '*'){
                 if (tmp.length() > 1) {
                     temp += Character.getNumericValue(tmp.charAt(0)) * Character.getNumericValue(tmp.charAt(1));
