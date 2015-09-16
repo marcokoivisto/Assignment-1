@@ -78,23 +78,37 @@ public class tasks {
             }
             else if (character == '+'){
                 if (tmp.length() > 1) {
-                    temp = Character.getNumericValue(tmp.charAt(0)) + Character.getNumericValue(tmp.charAt(1));
-                    System.out.println(temp);
+                    temp += Character.getNumericValue(tmp.charAt(0)) + Character.getNumericValue(tmp.charAt(1));
                 }
                 else
-                    temp += tmp.charAt(0);
+                    temp += Character.getNumericValue(tmp.charAt(0));
                 tmp = "";
             }
             else if (character == '-'){
-                temp += tmp.charAt(0) - tmp.charAt(1);
+                if (tmp.length() > 1) {
+                    temp += Character.getNumericValue(tmp.charAt(0)) - Character.getNumericValue(tmp.charAt(1));
+                    System.out.println(temp);
+                }
+                else
+                    temp -= Character.getNumericValue(tmp.charAt(0));
                 tmp = "";
             }
             else if (character == '/'){
-                temp += tmp.charAt(0) / tmp.charAt(1);
+                if (tmp.length() > 1) {
+                    temp = Character.getNumericValue(tmp.charAt(0)) / Character.getNumericValue(tmp.charAt(1));
+                    System.out.println(temp);
+                }
+                else
+                    temp /= Character.getNumericValue(tmp.charAt(0));
                 tmp = "";
             }
             else if (character == '*'){
-                temp += tmp.charAt(0) * tmp.charAt(1);
+                if (tmp.length() > 1) {
+                    temp += Character.getNumericValue(tmp.charAt(0)) * Character.getNumericValue(tmp.charAt(1));
+                    System.out.println(temp);
+                }
+                else
+                    temp *= Character.getNumericValue(tmp.charAt(0));
                 tmp = "";
             }
             else
