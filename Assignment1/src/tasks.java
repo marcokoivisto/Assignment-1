@@ -90,45 +90,61 @@ public class tasks {
             if (character >= '0' && character <= '9'){
                 tmp += character;
             }
-            //If the character is a operator + and the length of tmp is bigger then 1, the two characters in tmp will be added to each other
-            //and then to temp variable of type int. Else the character will directly be + to temp.
+            //If the character is a operator + and the length of tmp is bigger then 2 or equal to 2, the two characters in tmp will be added to each other
+            //and then to temp variable of type int. Else the character will directly be + to temp. Then the character will be deleted from tmp.
             else if (character == '+'){
-                if (tmp.length() > 1) {
-                    temp += Character.getNumericValue(tmp.charAt(0)) + Character.getNumericValue(tmp.charAt(1));
+                if (tmp.length() >= 2) {
+                    temp += Character.getNumericValue(tmp.charAt(tmp.length()-2)) + Character.getNumericValue(tmp.charAt(tmp.length()-1));
                 }
-                else
-                    temp += Character.getNumericValue(tmp.charAt(0));
-                tmp = "";
+                else if (tmp.length() < 2 && tmp.length() != 0) {
+                    temp += Character.getNumericValue(tmp.charAt(tmp.length()-1));
+                }
+                if (tmp.length() > 2){
+                    tmp = tmp.substring(0, tmp.length() - 2);
+                }
+                else tmp = "";
             }
-            //If the character is a operator - and the length of tmp is bigger then 1, the two characters in tmp will be substrate to each other
-            //and then to temp variable of type int. Else temp will be - with the character.
+            //If the character is a operator - and the length of tmp is bigger then 2 or equal to 2, the two characters in tmp will be substrate to each other
+            //and then to temp variable of type int. Else temp will be - with the character. Then the character will be deleted from tmp.
             else if (character == '-'){
-                if (tmp.length() > 1) {
-                    temp += Character.getNumericValue(tmp.charAt(0)) - Character.getNumericValue(tmp.charAt(1));
+                if (tmp.length() >= 2) {
+                    temp += Character.getNumericValue(tmp.charAt(tmp.length()-2)) - Character.getNumericValue(tmp.charAt(tmp.length()-1));
                 }
-                else
-                    temp -= Character.getNumericValue(tmp.charAt(0));
-                tmp = "";
+                else if (tmp.length() < 2 && tmp.length() != 0) {
+                    temp -= Character.getNumericValue(tmp.charAt(tmp.length()-1));
+                }
+                if (tmp.length() > 2){
+                    tmp = tmp.substring(0, tmp.length() - 2);
+                }
+                else tmp = "";
             }
-            //If the character is a operator / and the length of tmp is bigger then 1, the two characters in tmp will be divided by each other
-            //and then to temp variable of type int. Else temp will be / with the character.
+            //If the character is a operator / and the length of tmp is bigger then 2 or equal to 2, the two characters in tmp will be divided by each other
+            //and then to temp variable of type int. Else temp will be / with the character. Then the character will be deleted from tmp.
             else if (character == '/'){
-                if (tmp.length() > 1) {
-                    temp = (double)Character.getNumericValue(tmp.charAt(tmp.length()-2)) / (double)Character.getNumericValue(tmp.charAt(tmp.length()-1));
+                if (tmp.length() >= 2) {
+                    temp += (double)Character.getNumericValue(tmp.charAt(tmp.length()-2)) / (double)Character.getNumericValue(tmp.charAt(tmp.length()-1));
                 }
-                else
-                    temp /= Character.getNumericValue(tmp.charAt(0));
-                tmp = tmp.substring(0, tmp.length()-2);
+                else if (tmp.length() < 2 && tmp.length() != 0) {
+                    temp /= Character.getNumericValue(tmp.charAt(tmp.length() - 1));
+                }
+                if (tmp.length() > 2){
+                    tmp = tmp.substring(0, tmp.length() - 2);
+                }
+                else tmp = "";
             }
-            //If the character is a operator and the length of tmp is bigger then 1, the two characters in tmp will be multiplied to each other
-            //and then to temp variable of type int. Else temp will be * with the character.
+            //If the character is a operator and the length of tmp is bigger then 2 or equal to 2, the two characters in tmp will be multiplied to each other
+            //and then to temp variable of type int. Else temp will be * with the character. Then the character will be deleted from tmp.
             else if (character == '*'){
-                if (tmp.length() > 1) {
-                    temp += Character.getNumericValue(tmp.charAt(0)) * Character.getNumericValue(tmp.charAt(1));
+                if (tmp.length() >= 2) {
+                    temp += Character.getNumericValue(tmp.charAt(tmp.length()-2)) * Character.getNumericValue(tmp.charAt(tmp.length()-1));
                 }
-                else
-                    temp *= Character.getNumericValue(tmp.charAt(0));
-                tmp = "";
+                else if (tmp.length() < 2 && tmp.length() != 0) {
+                    temp *= Character.getNumericValue(tmp.charAt(tmp.length() - 1));
+                }
+                if (tmp.length() > 2){
+                    tmp = tmp.substring(0, tmp.length() - 2);
+                }
+                else tmp = "";
             }
             //I've added spaces between every character so if it's a space the while-loop will just continue.
             else
