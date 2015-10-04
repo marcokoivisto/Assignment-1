@@ -123,6 +123,7 @@ public class tasks {
             else if (character == '/'){
                 if (tmp.length() >= 2) {
                     temp += (double)Character.getNumericValue(tmp.charAt(tmp.length()-2)) / (double)Character.getNumericValue(tmp.charAt(tmp.length()-1));
+                    //
                 }
                 else if (tmp.length() < 2 && tmp.length() != 0) {
                     temp /= Character.getNumericValue(tmp.charAt(tmp.length() - 1));
